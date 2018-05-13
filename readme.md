@@ -8,6 +8,7 @@ Predicts the validity of volunteer hours. Trained on a cleaned subset of ~5k Vol
 - CNN outperforms LSTM (~0.87 F-score)
 - Run `cnn_model.py` first to generate the model, then run `cnn_train.py` to train.
 - Prediction/inference code is outdated, do not use
+- `model.h5` holds the 0.87 F1/ACC CNN model
 
 # Data
 - `out.csv` contains hour entries
