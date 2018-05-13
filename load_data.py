@@ -36,29 +36,30 @@ def load_data():
         status = row[4]
         i = 0
         while i < 200:
-            orgArr = np.zeros(12, dtype='float')
+            #orgArr = np.zeros(12, dtype='float')
             dowArr = np.zeros(7, dtype='float')
             startHrArr = np.zeros(24, dtype='float')
             durArr = np.zeros(1, dtype='float')
-            charArr = np.zeros(40, dtype='float')
+            charArr = np.zeros(67, dtype='float')
             
-            orgArr[orgIndex] = 1.0
+            #orgArr[orgIndex] = 1.0
             dowArr[dayOfWeekIndex] = 1.0
             startHrArr[startHourIndex] = 1.0
             durArr[0] = (endTimeSec - startTimeSec) / 36000.0 # 10 hours
             if len(desc) > i and dictionary.find(desc[i]) != -1:
                 charArr[dictionary.find(desc[i])] = 1.0
-            rowout.append(np.concatenate((orgArr, dowArr, startHrArr, durArr, charArr)))
+            rowout.append(np.concatenate((durArr, charArr, startHrArr, dowArr)))
             #rowout.append(charArr)
             i += 1
         
         if status == 'approved':
             output_x.append(rowout)
-            output_y.append([1, 0])
+            output_y.append([1., 0])
         else:
             j = 0
+            # duplicating data is more stable for training than 100x weight for negative examples
             while j < 20:
                 output_x.append(rowout)
-                output_y.append([0, 1])
-                j+= 1
-    return output_x, output_y
+                output_y.append([0, 1.])
+                j += 1
+    return np.array(output_x), np.array(output_y)
