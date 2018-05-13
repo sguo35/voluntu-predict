@@ -84,7 +84,7 @@ if __name__ == '__main__':
     model.compile('adam',
               loss='categorical_crossentropy',
               metrics=['acc', fmeasure])
-    model.fit(x, y, batch_size=64, epochs=50, verbose=1, validation_split=0.2, class_weight={0: 1., 1: 1.})#, callbacks=[reduce_lr])
+    model.fit(x, y, batch_size=64, epochs=7, verbose=1, validation_split=0.2, class_weight={0: 1., 1: 1.})#, callbacks=[reduce_lr])
     model.save('./model.h5')
     import gc
     gc.collect()
